@@ -28,5 +28,13 @@ test("Place Ship out of Bounds Horizontal", () => {
 })
 
 test("Recieve Attack hit", () => {
+    expect(board.recieveAttack(5, 6)).toBe(board.board[6][6].hits)
+})
 
+test("Recieve Attack miss", () => {
+    expect(board.recieveAttack(3, 2)).toBe(board.missedShots.length)
+})
+
+test("Recieve Attack miss", () => {
+    expect(board.recieveAttack(3, 2)).toBe(board.missedShots.length)
 })
