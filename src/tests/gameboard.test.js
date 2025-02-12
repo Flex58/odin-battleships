@@ -32,9 +32,5 @@ test("Recieve Attack hit", () => {
 })
 
 test("Recieve Attack miss", () => {
-    expect(board.recieveAttack(3, 2)).toBe(board.missedShots.length)
-})
-
-test("Recieve Attack miss", () => {
-    expect(board.recieveAttack(3, 2)).toBe(board.missedShots.length)
+    expect(board.recieveAttack(3, 2)).toBe(board.board[3][2])
 })

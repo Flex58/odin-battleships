@@ -4,7 +4,6 @@ class Gameboard {
     for (let i = 0; i < this.board.length; i++) {
       this.board[i] = new Array(10);
     }
-    this.missedShots = []
   }
 
   place(ship, coordW, coordH, mode = "vert") {
@@ -46,10 +45,10 @@ class Gameboard {
     if (typeof this.board[coordW][coordH] == "object") {
       return this.board[coordW][coordH].hit()
     } else {
-      this.board[coordW][coordH] = "miss"
-      return this.missedShots.push([coordW, coordH])
+      return this.board[coordW][coordH] = "miss"
     }
   }
 }
+
 
 export default Gameboard;
