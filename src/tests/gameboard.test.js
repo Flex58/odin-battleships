@@ -8,11 +8,11 @@ test("Gameboard intialized", () => {
 })
 
 test("Place Ships on Board", () => {
-    expect(board.place(new Ship(2), 7, 6)).toBe(board.board[7][7])
+    expect(board.place(new Ship(2), 7, 6)).toEqual(board.board[7][7])
 })
 
 test("Place Ships on Board Horizontal", () => {
-    expect(board.place(new Ship(2), 5, 6, "hori")).toBe(board.board[6][6])
+    expect(board.place(new Ship(2), 5, 6, "hori")).toEqual(board.board[6][6])
 })
 
 test("Place Ships on another Ship", () => {
@@ -28,9 +28,29 @@ test("Place Ship out of Bounds Horizontal", () => {
 })
 
 test("Recieve Attack hit", () => {
-    expect(board.recieveAttack(5, 6)).toBe(board.board[6][6].hits)
+    expect(board.recieveAttack(5, 6)).toBe(board.board[6][6].ship.hits)
 })
 
 test("Recieve Attack miss", () => {
-    expect(board.recieveAttack(3, 2)).toBe(board.board[3][2])
+    expect(board.recieveAttack(3, 2)).toEqual(board.board[3][2].hit)
 })
+
+test("Recieve Attack already hit", () => {
+    expect(() => board.recieveAttack(3,2)).toThrow("Cell already hit")
+})
+
+test("Check if sunk and update sunk count", () => {
+    board.recieveAttack(5,6)
+    expect(board.sunkCount).toBe(1)
+})
+
+test("All Sunk to be true", () => {
+    board.sunkCount = 5;
+    expect(board.allSunk()).toBe(true)
+    board.sunkCount = 1
+})
+
+test("All Sunk to be false", () => {
+    expect(board.allSunk()).toBe(false)
+})
+
