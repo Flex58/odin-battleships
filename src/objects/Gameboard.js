@@ -1,4 +1,5 @@
 import Cell from "./Cell";
+import Ship from "./Ship";
 
 class Gameboard {
   constructor() {
@@ -63,6 +64,30 @@ class Gameboard {
   allSunk() {
     if (this.sunkCount == 5) return true;
     return false;
+  }
+
+  placeShipsRandom() {
+    let fleet = [
+      new Ship(5),
+      new Ship(4),
+      new Ship(3),
+      new Ship(3),
+      new Ship(2),
+    ];
+
+    for (let ship in fleet) {
+      let success = false;
+      while (!success) {
+        try {
+          this.place(
+            fleet[ship],
+            Math.floor(Math.random() * 10),
+            Math.floor(Math.random() * 10),
+          );
+          success = true;
+        } catch{}
+      }
+    }
   }
 }
 
