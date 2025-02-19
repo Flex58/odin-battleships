@@ -1,0 +1,41 @@
+#content {
+    display: flex;
+}
+
+
+#opponent {
+    aspect-ratio: 1/1;
+    display: grid;
+    grid-auto-flow: column;
+    grid-template-columns: repeat(11, minmax(50px, 75px));
+    grid-template-rows: repeat(11,  minmax(50px, 75px));
+}
+
+#own {
+    aspect-ratio: 1/1;
+    display: grid;
+    grid-auto-flow: column;
+    grid-template-columns: repeat(11, minmax(25px, 50px));
+    grid-template-rows: repeat(11,  minmax(25px, 50px));
+}
+
+.cell,
+.alpha,
+.numb {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.cell {
+    border: 1px solid black;
+}
+
+.alpha {
+    grid-column: 1/-12;
+}
+
+.numb {
+    grid-row: 11;
+}
