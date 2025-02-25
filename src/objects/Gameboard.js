@@ -51,11 +51,12 @@ class Gameboard {
   recieveAttack(coordW, coordH) {
     if (this.board[coordW][coordH].ship && !this.board[coordW][coordH].hit) {
       this.board[coordW][coordH].ship.hit();
-      this.board[coordH][coordH].hit = true;
+      this.board[coordW][coordH].hit = true;
       if (this.board[coordW][coordH].ship.isSunk()) this.sunkCount++;
-      return this.board[coordW][coordH].ship.hits;
+      return true
     } else if (!this.board[coordW][coordH].hit) {
-      return (this.board[coordW][coordH].hit = true);
+      this.board[coordW][coordH].hit = true;
+      return false
     } else {
       throw new Error("Cell already hit");
     }

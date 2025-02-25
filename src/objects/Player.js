@@ -1,4 +1,5 @@
 import Gameboard from "./Gameboard";
+import Ship from "./Ship";
 
 class Player {
     constructor() {

@@ -1,5 +1,8 @@
-import gameController from "./gameController"
-import "./styles.css"
+import renderDisplay from "./renderFunctions/renderDisplay";
+import clearDisplay from "./renderFunctions/clearDisplay";
+import gameController from "./gameController";
+import "./styles.css";
 
-gameController();
+const game = gameController;
 
+game.intializeGame();
