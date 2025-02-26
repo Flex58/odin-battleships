@@ -14,6 +14,7 @@ class Gameboard {
   }
 
   place(ship, coordW, coordH, mode = "vert") {
+    const oldBoard = [].concat(this.board)
     if (mode == "vert") {
       //we check with -1 for out of area because we count inclusive (5+6 = 5,6,7,8,9,10)
       if (ship.length + coordH - 1 > 10) {
@@ -22,11 +23,9 @@ class Gameboard {
 
       for (let i = 0; i < ship.length; i++) {
         if (this.board[coordW][coordH + i].ship) {
+          this.board = oldBoard
           throw new Error("Ship already placed");
         }
-      }
-
-      for (let i = 0; i < ship.length; i++) {
         this.board[coordW][coordH + i].ship = ship;
       }
       return this.board[coordW][coordH];
@@ -37,11 +36,9 @@ class Gameboard {
 
       for (let i = 0; i < ship.length; i++) {
         if (this.board[coordW][coordH + i].ship) {
+          this.board = oldBoard
           throw new Error("Ship already placed");
         }
-      }
-
-      for (let i = 0; i < ship.length; i++) {
         this.board[coordW + i][coordH].ship = ship;
       }
       return this.board[coordW][coordH];
@@ -49,17 +46,17 @@ class Gameboard {
   }
 
   recieveAttack(coordW, coordH) {
-    if (this.board[coordW][coordH].ship && !this.board[coordW][coordH].hit) {
-      this.board[coordW][coordH].ship.hit();
-      this.board[coordW][coordH].hit = true;
-      if (this.board[coordW][coordH].ship.isSunk()) this.sunkCount++;
-      return true
-    } else if (!this.board[coordW][coordH].hit) {
-      this.board[coordW][coordH].hit = true;
-      return false
-    } else {
+    const cell = this.board[coordW][coordH];
+
+    if (cell.hit) {
       throw new Error("Cell already hit");
+    } else if (cell.ship) {
+      cell.ship.hit();
+      if (cell.ship.isSunk()) this.sunkCount++;
+      return (cell.hit = true);
     }
+    cell.hit = true;
+    return false;
   }
 
   allSunk() {
@@ -86,7 +83,7 @@ class Gameboard {
             Math.floor(Math.random() * 10),
           );
           success = true;
-        } catch{}
+        } catch {}
       }
     }
   }
