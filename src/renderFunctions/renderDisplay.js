@@ -1,6 +1,9 @@
 import gameControllerAI from "../gameController";
 
 const renderDisplay = (board, mode = "opponent") => {
+  const OWN_MODE = "own"
+  const OPP_MODE = "opponent"
+
   const content = document.querySelector("#content");
   const container = document.createElement("div");
   container.id = mode;
@@ -11,6 +14,15 @@ const renderDisplay = (board, mode = "opponent") => {
   container.appendChild(emptyDiv);
 
   let counterAlpha = 65;
+
+  if (mode != OWN_MODE) {
+    container.addEventListener("click", (e) => {
+      const target = e.target.closest(".cell")
+      if (!target) return
+
+      gameControllerAI.playTurn(Number(target.dataset.x), Number(target.dataset.y))
+    });
+  }
   board.forEach((ele, eleIndex) => {
     const divAlpha = document.createElement("div");
     const divNumb = document.createElement("div");
@@ -35,12 +47,9 @@ const renderDisplay = (board, mode = "opponent") => {
         div.textContent = "ship";
       } else {
         div.textContent = "-";
-        if (mode != "own") {
+        if (mode != OWN_MODE) {
           div.dataset.x = eleIndex;
           div.dataset.y = cellIndex
-          div.addEventListener("click", () => {
-            gameControllerAI.playTurn(Number(div.dataset.x), Number(div.dataset.y));
-          });
         }
       }
       container.appendChild(div);
