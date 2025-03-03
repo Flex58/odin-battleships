@@ -2,7 +2,7 @@ import gameControllerAI from "../gameController"
 
 const renderGameOver = (player) => {
     const modal = document.querySelector("#modal")
-    modal.style.display = "block"
+    modal.style.display = "flex"
 
     const btn = document.querySelector("#restart")
 
