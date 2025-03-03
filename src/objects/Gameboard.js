@@ -14,40 +14,33 @@ class Gameboard {
   }
 
   place(ship, coordW, coordH, mode = "vert") {
-    const oldBoard = [].concat(this.board)
-    if (mode == "vert") {
-      //we check with -1 for out of area because we count inclusive (5+6 = 5,6,7,8,9,10)
-      if (ship.length + coordH - 1 > 10) {
-        throw new Error("Out of Area");
-      }
-
-      for (let i = 0; i < ship.length; i++) {
-        if (this.board[coordW][coordH + i].ship) {
-          this.board = oldBoard
-          throw new Error("Ship already placed");
-        }
-        this.board[coordW][coordH + i].ship = ship;
-      }
-      return this.board[coordW][coordH];
-    } else if (mode == "hori") {
-      if (ship.length + coordW - 1 > 10) {
-        throw new Error("Out of Area");
-      }
-
-      for (let i = 0; i < ship.length; i++) {
-        if (this.board[coordW][coordH + i].ship) {
-          this.board = oldBoard
-          throw new Error("Ship already placed");
-        }
-        this.board[coordW + i][coordH].ship = ship;
-      }
-      return this.board[coordW][coordH];
+    if (
+      (mode === "vert" && ship.length + coordH > 10) ||
+      (mode === "hori" && ship.length + coordW > 10)
+    ) {
+      throw new Error("Out of Area");
     }
+
+    for (let i = 0; i < ship.length; i++) {
+      let x = mode === "vert" ? coordW : coordW + i;
+      let y = mode === "vert" ? coordH + i : coordH;
+      if (this.board[x][y].ship) {
+        throw new Error("Ship already placed");
+      }
+    }
+
+    for (let i = 0; i < ship.length; i++) {
+      let x = mode === "vert" ? coordW : coordW + i;
+      let y = mode === "vert" ? coordH + i : coordH;
+
+      this.board[x][y].ship = ship;
+    }
+
+    return this.board[coordW][coordH];
   }
 
   recieveAttack(coordW, coordH) {
     const cell = this.board[coordW][coordH];
-
     if (cell.hit) {
       throw new Error("Cell already hit");
     } else if (cell.ship) {
@@ -83,7 +76,7 @@ class Gameboard {
             Math.floor(Math.random() * 10),
           );
           success = true;
-        } catch {}
+        } catch (e) {}
       }
     }
   }

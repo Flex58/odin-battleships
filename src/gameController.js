@@ -38,7 +38,9 @@ const gameControllerObj = (mode = "PVP") => {
       const hit = getInactivePlayer().gameboard.recieveAttack(coordW, coordH);
       updateScreen();
       if (getInactivePlayer().gameboard.allSunk()) {
-        //do something
+        const modal = document.querySelector("#modal")
+        modal.style.display = "block"
+        
       }
       if (hit) return;
       switchActivePlayer();
