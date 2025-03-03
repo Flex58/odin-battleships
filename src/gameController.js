@@ -1,6 +1,7 @@
 import Player from "./objects/Player";
 import clearDisplay from "./renderFunctions/clearDisplay";
 import renderDisplay from "./renderFunctions/renderDisplay";
+import renderGameOver from "./renderFunctions/renderGameOver";
 
 const gameControllerObj = (mode = "PVP") => {
   const Player1 = new Player();
@@ -21,6 +22,9 @@ const gameControllerObj = (mode = "PVP") => {
   };
 
   const intializeGame = () => {
+    activePlayer = Player1
+    getActivePlayer().resetBoard()
+    getInactivePlayer().resetBoard()
     getActivePlayer().gameboard.placeShipsRandom();
     getInactivePlayer().gameboard.placeShipsRandom();
     renderDisplay(getInactivePlayer().gameboard.board);
@@ -38,9 +42,8 @@ const gameControllerObj = (mode = "PVP") => {
       const hit = getInactivePlayer().gameboard.recieveAttack(coordW, coordH);
       updateScreen();
       if (getInactivePlayer().gameboard.allSunk()) {
-        const modal = document.querySelector("#modal")
-        modal.style.display = "block"
-        
+        renderGameOver(getActivePlayer().name)
+        return
       }
       if (hit) return;
       switchActivePlayer();
@@ -59,6 +62,10 @@ const gameControllerObj = (mode = "PVP") => {
           Math.floor(Math.random() * 10),
         );
         success = true;
+        if (getInactivePlayer().gameboard.allSunk()) {
+          renderGameOver(getActivePlayer().name)
+          return
+        }
         if (hit) playAI();
         else {
           switchActivePlayer();
@@ -74,6 +81,7 @@ const gameControllerObj = (mode = "PVP") => {
     getInactivePlayer,
     intializeGame,
     playTurn,
+    updateScreen
   };
 };
 
