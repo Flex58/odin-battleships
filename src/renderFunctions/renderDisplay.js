@@ -47,7 +47,7 @@ const renderDisplay = (board, mode = "opponent") => {
       } else if (cell.hit && !cell.ship) {
         div.textContent = "O";
       } else if (!cell.hit && cell.ship && mode == "own") {
-        div.textContent = "ship";
+        div.textContent = cell.ship.name;
       } else {
         div.textContent = "-";
         if (mode != OWN_MODE) {

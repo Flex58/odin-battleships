@@ -23,12 +23,9 @@ const gameControllerObj = (mode = "PVP") => {
 
   const intializeGame = () => {
     activePlayer = Player1
-    getActivePlayer().resetBoard()
     getInactivePlayer().resetBoard()
-    getActivePlayer().gameboard.placeShipsRandom();
     getInactivePlayer().gameboard.placeShipsRandom();
-    renderDisplay(getInactivePlayer().gameboard.board);
-    renderDisplay(getActivePlayer().gameboard.board, "own");
+    updateScreen()
   };
 
   const updateScreen = () => {
@@ -63,7 +60,8 @@ const gameControllerObj = (mode = "PVP") => {
         );
         success = true;
         if (getInactivePlayer().gameboard.allSunk()) {
-          renderGameOver(getActivePlayer().name)
+          switchActivePlayer
+          renderGameOver(getInactivePlayer().name)
           return
         }
         if (hit) playAI();

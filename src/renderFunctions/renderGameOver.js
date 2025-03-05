@@ -1,4 +1,6 @@
 import gameControllerAI from "../gameController"
+import clearDisplay from "./clearDisplay"
+import renderSetUp from "./renderSetUp"
 
 const renderGameOver = (player) => {
     const modal = document.querySelector("#modal")
@@ -12,8 +14,9 @@ const renderGameOver = (player) => {
 
     btn.addEventListener("click", () => {
         modal.style.display = "none"
-        gameControllerAI.intializeGame()
-        gameControllerAI.updateScreen()
+        clearDisplay("#content")
+        gameControllerAI.getActivePlayer().resetBoard()
+        renderSetUp(gameControllerAI.getActivePlayer())
     })
 }
 

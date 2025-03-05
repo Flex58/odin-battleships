@@ -57,7 +57,11 @@
   background-color: white;
   width: fit-content;
   position: fixed;
-    border: 2px solid black;
-    border-radius: 10%;
+  border: 2px solid black;
+  border-radius: 10%;
   padding: 50px;
+}
+
+.drag {
+  background-color: green;
 }
