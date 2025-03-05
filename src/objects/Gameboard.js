@@ -57,15 +57,8 @@ class Gameboard {
     return false;
   }
 
-  placeShipsRandom() {
-    let fleet = [
-      new Ship(5),
-      new Ship(4),
-      new Ship(3),
-      new Ship(3),
-      new Ship(2),
-    ];
-
+  placeShipsRandom(fleet) {
+  
     for (let ship in fleet) {
       let success = false;
       while (!success) {

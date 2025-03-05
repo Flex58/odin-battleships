@@ -7,6 +7,6 @@ test("Switch Active Player", () => {
 })
 
 test("Place Ships", () => {
-    cont.getActivePlayer().gameboard.placeShipsRandom()
+    cont.getActivePlayer().gameboard.placeShipsRandom(cont.getActivePlayer().ships)
     expect(cont.getActivePlayer()).not.toEqual(cont.switchActivePlayer())
 })

@@ -24,7 +24,7 @@ const gameControllerObj = (mode = "PVP") => {
   const intializeGame = () => {
     activePlayer = Player1
     getInactivePlayer().resetBoard()
-    getInactivePlayer().gameboard.placeShipsRandom();
+    getInactivePlayer().gameboard.placeShipsRandom(getInactivePlayer().ships);
     updateScreen()
   };
 
